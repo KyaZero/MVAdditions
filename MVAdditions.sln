@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.32912.340
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVAdditions", "MVAdditions.csproj", "{5ABAA605-18AE-4D13-9687-DB673EE695B9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{04BE7D5C-81E5-4895-A546-00E344921728} = {04BE7D5C-81E5-4895-A546-00E344921728}
+		{C43E63D4-30E3-4C6E-8471-08CEE50706B3} = {C43E63D4-30E3-4C6E-8471-08CEE50706B3}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapsetVerifierFramework", "..\MapsetVerifierFramework\MapsetVerifierFramework.csproj", "{C43E63D4-30E3-4C6E-8471-08CEE50706B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapsetParser", "..\MapsetParser\MapsetParser.csproj", "{04BE7D5C-81E5-4895-A546-00E344921728}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5ABAA605-18AE-4D13-9687-DB673EE695B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ABAA605-18AE-4D13-9687-DB673EE695B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ABAA605-18AE-4D13-9687-DB673EE695B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ABAA605-18AE-4D13-9687-DB673EE695B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C43E63D4-30E3-4C6E-8471-08CEE50706B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C43E63D4-30E3-4C6E-8471-08CEE50706B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C43E63D4-30E3-4C6E-8471-08CEE50706B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C43E63D4-30E3-4C6E-8471-08CEE50706B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04BE7D5C-81E5-4895-A546-00E344921728}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04BE7D5C-81E5-4895-A546-00E344921728}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04BE7D5C-81E5-4895-A546-00E344921728}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04BE7D5C-81E5-4895-A546-00E344921728}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E80A03FE-FDB5-47A2-881E-71B78C069F5B}
+	EndGlobalSection
+EndGlobal
