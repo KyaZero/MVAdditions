@@ -36,11 +36,12 @@ namespace MVAdditions.Checks
             {
                 {
                     "Purpose",
-                    "Mentions when there's a note without any hitsound, where it's hitsounded in another diff."
+                    "Goes through the hitsounds and mentions out common points of failure."
                 },
                 {
                     "Reasoning",
-                    @"This simplifies having to open the overview tab and compare several timelines to make sure the hitsounds were properly copied down."
+                    @"This simplifies having to open the overview tab and compare several timelines to make sure the hitsounds were properly copied down. 
+                     As well as finding some other hard to spot mistakes with hitsounds, such as sliderbody additions"
                 }
             }
         };
@@ -56,6 +57,22 @@ namespace MVAdditions.Checks
                             "timestamp -", "hitsound", "other difficulties")
                         .WithCause(
                             "Missing hitsounds when they are hitsounded in other diffs is most likely a mistake that should be fixed.")
+                },
+                {
+                    "MissingHitsoundMinor",
+                    new IssueTemplate(Issue.Level.Minor,
+                            "{0} is missing ({1}) which exists in {2}",
+                            "timestamp -", "hitsound", "other difficulties")
+                        .WithCause(
+                            "Same as the warning but more likely to be due to separate hs per diff.")
+                },
+                {
+                    "SliderBody",
+                    new IssueTemplate(Issue.Level.Warning,
+                            "{0} This sliderbody has additions, ensure this is intentional.",
+                            "timestamp -")
+                        .WithCause(
+                            "Most of the time sliderbody hitsounds are a mistake, and can be hard to spot.")
                 }
             };
         }
@@ -66,8 +83,18 @@ namespace MVAdditions.Checks
             {
                 foreach (HitObject obj in beatmap.hitObjects)
                 {
+                    // Check for sliderbody hitsounds
+                    if (obj is Slider slider)
+                    {
+                        if (slider.hitSound != HitObject.HitSound.None)
+                        {
+                            yield return new Issue(GetTemplate("SliderBody"), beatmap, Timestamp.Get(obj));
+                        }
+                    }
+
                     var issues = CompareHitObjectWithOtherMaps(obj, beatmap,
                         beatmapSet);
+
                     foreach (Issue issue in issues)
                         yield return issue;
                 }
@@ -102,6 +129,13 @@ namespace MVAdditions.Checks
                 }
             }
 
+            if (missingHitsounds.Count > 0)
+            {
+                issues.Add(new Issue(GetTemplate((maps.Count > 1) ? "MissingHitsound" : "MissingHitsoundMinor"), currentMap, Timestamp.Get(objInfo.Time), string.Join(", ", missingHitsounds.Distinct()), string.Join(", ", maps.Distinct())));
+                missingHitsounds.Clear();
+                maps.Clear();
+            }
+
             // check the sliderend hitsound as well
             if (hitObject is Slider slider)
             {
@@ -126,9 +160,9 @@ namespace MVAdditions.Checks
                 }
             }
 
-            if (missingHitsounds.Count > 0 && maps.Count > 1)
+            if (missingHitsounds.Count > 0)
             {
-                issues.Add(new Issue(GetTemplate("MissingHitsound"), currentMap, Timestamp.Get(objInfo.Time), string.Join(", ", missingHitsounds.Distinct()), string.Join(", ", maps.Distinct())));
+                issues.Add(new Issue(GetTemplate((maps.Count > 1) ? "MissingHitsound" : "MissingHitsoundMinor"), currentMap, Timestamp.Get(objInfo.Time), string.Join(", ", missingHitsounds.Distinct()), string.Join(", ", maps.Distinct())));
             }
 
             return issues;
