@@ -41,13 +41,15 @@ namespace MVAdditions.Checks
                     "Warning",
                     new IssueTemplate(Issue.Level.Warning,
                         "{0}: {1} -> {2} ({3} -> this). That's {4}, ensure this makes sense.",
-                        "setting", "value", "value", "difficulty", "higher")
+                        "setting", "value", "value", "difficulty", "higher/lower").WithCause(
+                        "There usually should be a _mostly_ consistent progression in the settings, and if there isn't it's worth checking whether that's intentional or not.")
                 },
                 {
                     "Minor",
                     new IssueTemplate(Issue.Level.Minor,
-                        "{0}: {1} -> {2} ({3} -> this). That's {4}, ensure this makes sense.",
-                        "setting", "value", "value", "difficulty", "higher")
+                            "{0}: {1} -> {2} ({3} -> this). That's {4}, ensure this makes sense.",
+                            "setting", "value", "value", "difficulty", "higher/lower")
+                        .WithCause("Same as warning but less likely to be an issue.")
                 }
             };
         }

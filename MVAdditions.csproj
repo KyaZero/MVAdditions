@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
-        <ProjectReference Include="..\MapsetVerifierFramework\MapsetVerifierFramework.csproj" />
-        <ProjectReference Include="..\MapsetParser\MapsetParser.csproj" />
+        <ProjectReference Include="..\MapsetVerifierFramework\MapsetVerifierFramework.csproj"/>
+        <ProjectReference Include="..\MapsetParser\MapsetParser.csproj"/>
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Copy SourceFiles="$(TargetDir)MVAdditions.dll" DestinationFolder="$(AppData)\Mapset Verifier Externals\checks\" />
+        <Copy SourceFiles="$(TargetDir)MVAdditions.dll" DestinationFolder="$(AppData)\Mapset Verifier Externals\checks\"/>
     </Target>
 
     <PropertyGroup>
