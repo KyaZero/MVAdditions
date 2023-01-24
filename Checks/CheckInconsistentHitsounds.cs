@@ -69,8 +69,16 @@ namespace MVAdditions.Checks
                             "Same as the warning but more likely to be due to separate hs per diff.")
                 },
                 {
-                    "SliderBody",
+                    "SliderBodyWarning",
                     new IssueTemplate(Issue.Level.Warning,
+                            "{0} Sliderbody additions are used 5 times or less, ensure this makes sense.",
+                            "timestamp(s) -")
+                        .WithCause(
+                            "Most of the time sliderbody hitsounds are a mistake, and can be hard to spot.")
+                },
+                {
+                    "SliderBodyMinor",
+                    new IssueTemplate(Issue.Level.Minor,
                             "{0} This sliderbody has additions, ensure this is intentional.",
                             "timestamp -")
                         .WithCause(
@@ -119,9 +127,21 @@ namespace MVAdditions.Checks
             // Check for sliderbody hitsounds
             foreach (Beatmap beatmap in beatmapSet.beatmaps)
             {
+                List<string> timestamps = new List<string>();
                 foreach (HitObject obj in beatmap.hitObjects)
+                {
                     if (obj is Slider asSlider && asSlider.hitSound != HitObject.HitSound.None)
-                        yield return new Issue(GetTemplate("SliderBody"), beatmap, Timestamp.Get(obj));
+                    {
+                        timestamps.Add(Timestamp.Get(obj));
+                    }
+                }
+
+                if (timestamps.Any() && timestamps.Count < 5)
+                    yield return new Issue(GetTemplate("SliderBodyWarning"), beatmap,
+                        string.Join(" ", timestamps.Distinct()));
+
+                foreach (string timestamp in timestamps)
+                    yield return new Issue(GetTemplate("SliderBodyMinor"), beatmap, timestamp);
             }
         }
 
