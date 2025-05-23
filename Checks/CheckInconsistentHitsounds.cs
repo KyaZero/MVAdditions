@@ -130,7 +130,7 @@ namespace MVAdditions.Checks
                 List<string> timestamps = new List<string>();
                 foreach (HitObject obj in beatmap.hitObjects)
                 {
-                    if (obj is Slider asSlider && asSlider.hitSound != HitObject.HitSound.None)
+                    if (obj is Slider asSlider && asSlider.hitSound > HitObject.HitSound.Normal)
                     {
                         timestamps.Add(Timestamp.Get(obj));
                     }
